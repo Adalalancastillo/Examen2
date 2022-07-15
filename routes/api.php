@@ -40,3 +40,4 @@ Route::post('/alumnos',[AlumnoController::class,'create']);
 Route::put('/alumnos/{id}',[AlumnoController::class,'update']);
 Route::get('/alumnos/{id}',[AlumnoController::class,'show']);
 Route::delete('/alumnos/{id}',[AlumnoController::class,'delete']);
+
