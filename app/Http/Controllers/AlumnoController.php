@@ -34,10 +34,6 @@ class AlumnoController extends Controller
 
         $data = $alumnos->where('genero','=','femenino');
 
-        $alumnos = Alumno::where('genero', 'Femenino')->get();
-
-        $data = $alumnos->where('genero','=','Femenino');
-
         return response()->json([
             'total_data' => count($data),
             'data' => $data
