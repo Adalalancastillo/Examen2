@@ -18,16 +18,13 @@ class AlumnoController extends Controller
 
     public function alumnosMasculino()
     {
-        $alumnos = Alumno::all();
-        return response()->json([
-            'total_data' => count($alumnos),
-            'data' => $alumnos
-        ], 200);
+        $alumnos = Alumno::where('genero', 'masculino')->get();
 
-        $data = $alumnos->where('genero', 'masculino');
+        $data = $alumnos->where('genero','=','masculino');
 
         return response()->json([
-            'genero'=>count($data)
+            'total_data' => count($data),
+            'data' => $data
         ], 200);
     }
 
@@ -35,10 +32,15 @@ class AlumnoController extends Controller
     {
         $alumnos = Alumno::where('genero', 'femenino')->get();
 
-        $data = $alumnos->where('genero','==','femenino');
+        $data = $alumnos->where('genero','=','femenino');
+
+        $alumnos = Alumno::where('genero', 'Femenino')->get();
+
+        $data = $alumnos->where('genero','=','Femenino');
 
         return response()->json([
-            $data
+            'total_data' => count($data),
+            'data' => $data
         ], 200);
     }
 
@@ -49,7 +51,8 @@ class AlumnoController extends Controller
         $data = $alumnos->where('becado','LIKE','no');
 
         return response()->json([
-            $data
+            'total_data' => count($data),
+            'data' => $data
         ], 200);
     }
 
@@ -60,7 +63,8 @@ class AlumnoController extends Controller
         $data = $alumnos->where('becado','LIKE','si');
 
         return response()->json([
-            $data
+            'total_data' => count($data),
+            'data' => $data
         ], 200);
     }
 
@@ -71,7 +75,8 @@ class AlumnoController extends Controller
         $data = $alumnos->where('horario','LIKE','matutino');
 
         return response()->json([
-            $data
+            'total_data' => count($data),
+            'data' => $data
         ], 200);
     }
 
@@ -82,7 +87,8 @@ class AlumnoController extends Controller
         $data = $alumnos->where('horario','LIKE','vespertino');
 
         return response()->json([
-            $data
+            'total_data' => count($data),
+            'data' => $data
         ], 200);
     }
 
@@ -97,7 +103,8 @@ class AlumnoController extends Controller
         $data = $alumnos->where('problema_de_salud','LIKE','no');
 
         return response()->json([
-            $data
+            'total_data' => count($data),
+            'data' => $data
         ], 200);
     }
 
@@ -108,7 +115,8 @@ class AlumnoController extends Controller
         $data = $alumnos->where('problema_de_salud','LIKE','si');
 
         return response()->json([
-            $data
+            'total_data' => count($data),
+            'data' => $data
         ], 200);
     }
 
@@ -122,20 +130,22 @@ class AlumnoController extends Controller
         $alumnos = Alumno::where('calificacion_prepa', '')->get();
 
         return response()->json([
-            $alumnos
+            'total_data' => count($alumnos),
+            'data' => $alumnos
         ], 200);
     }
 
     public function prepaAprobada()
     {
-        $alumnos = Alumno::where('calificacion_prepa', '6')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '7')->get();
+        $alumnos = Alumno::where('calificacion_prepa', '6, 7, 8, 9, 10')->get();
+        /* $alumnos = Alumno::where('calificacion_prepa', '7')->get();
         $alumnos = Alumno::where('calificacion_prepa', '8')->get();
         $alumnos = Alumno::where('calificacion_prepa', '9')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '10')->get();
+        $alumnos = Alumno::where('calificacion_prepa', '10')->get(); */
 
         return response()->json([
-            $alumnos
+            'total_data' => count($alumnos),
+            'data' => $alumnos
         ], 200);
     }
 
