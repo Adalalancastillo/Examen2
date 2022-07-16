@@ -16,132 +16,66 @@ class AlumnoController extends Controller
         ], 200);
     }
 
-    public function alumnosMasculino()
+    public function datos()
     {
-        $alumnos = Alumno::where('genero', 'masculino')->get();
+        $alumnos = Alumno::all();
 
-        $data = $alumnos->where('genero','=','masculino');
+        $alumnosM = Alumno::where('genero', 'masculino')->get();
+        $alumnosF = Alumno::where('genero', 'femenino')->get();
+        $alumnosBS = Alumno::where('becado', 'si')->get();
+        $alumnosBN = Alumno::where('becado', 'no')->get();
+        $alumnosHM = Alumno::where('horario', 'matutino')->get();
+        $alumnosHV = Alumno::where('horario', 'vespertino')->get();
+        $alumnosPS = Alumno::where('problema_de_salud', 'si')->get();
+        $alumnosPN = Alumno::where('problema_de_salud', 'no')->get();
+        $alumnosPNI = Alumno::where('problema_de_salud', 'ninguno')->get();
+        $alumnosCR = Alumno::whereBetween('calificacion_prepa', [1,5])->get();
+        $alumnosCA = Alumno::whereBetween('calificacion_prepa', [6,10])->get();
 
         return response()->json([
-            'total_data' => count($data),
-            'data' => $data
-        ], 200);
-    }
+            'message1' => 'Alumnos masculinos',
+            'total_data1' => count($alumnosM),
+            'data1' => $alumnosM,
 
-    public function alumnosFemenino()
-    {
-        $alumnos = Alumno::where('genero', 'femenino')->get();
+            'message2' => 'Alumnos femeninos',
+            'total_data2' => count($alumnosF),
+            'data2' => $alumnosF,
 
-        $data = $alumnos->where('genero','=','femenino');
+            'message3' => 'Alumnos becados',
+            'total_data3' => count($alumnosBS),
+            'data3' => $alumnosBS,
 
-        return response()->json([
-            'total_data' => count($data),
-            'data' => $data
-        ], 200);
-    }
+            'message4' => 'Alumnos no becados',
+            'total_data4' => count($alumnosBN),
+            'data4' => $alumnosBN,
 
-    public function sinbeca()
-    {
-        $alumnos = Alumno::where('becado', 'no')->get();
+            'message5' => 'Alumnos horario matutino',
+            'total_data5' => count($alumnosHM),
+            'data5' => $alumnosHM,
 
-        $data = $alumnos->where('becado','LIKE','no');
+            'message6' => 'Alumnos horario vespertino',
+            'total_data6' => count($alumnosHV),
+            'data6' => $alumnosHV,
 
-        return response()->json([
-            'total_data' => count($data),
-            'data' => $data
-        ], 200);
-    }
+            'message7' => 'Alumnos problema de salud',
+            'total_data7' => count($alumnosPS),
+            'data7' => $alumnosPS,
 
-    public function becado()
-    {
-        $alumnos = Alumno::where('becado', 'si')->get();
+            'message8' => 'Alumnos sin problema de salud',
+            'total_data8' => count($alumnosPN),
+            'data8' => $alumnosPN,
 
-        $data = $alumnos->where('becado','LIKE','si');
+            'message9' => 'Alumnos ningun problema de salud',
+            'total_data9' => count($alumnosPNI),
+            'data9' => $alumnosPNI,
 
-        return response()->json([
-            'total_data' => count($data),
-            'data' => $data
-        ], 200);
-    }
+            'message10' => 'Alumnos aprobados prepa',
+            'total_data10' => count($alumnosCA),
+            'data10' => $alumnosCA,
 
-    public function horarioM()
-    {
-        $alumnos = Alumno::where('horario', 'matutino')->get();
-
-        $data = $alumnos->where('horario','LIKE','matutino');
-
-        return response()->json([
-            'total_data' => count($data),
-            'data' => $data
-        ], 200);
-    }
-
-    public function horarioV()
-    {
-        $alumnos = Alumno::where('horario', 'vespertino')->get();
-
-        $data = $alumnos->where('horario','LIKE','vespertino');
-
-        return response()->json([
-            'total_data' => count($data),
-            'data' => $data
-        ], 200);
-    }
-
-    public function sinproblemaSalud()
-    {
-        $alumnos = Alumno::where('problema_de_salud', 'ninguno')->get();
-
-        $data = $alumnos->where('problema_de_salud','LIKE','ninguno');
-
-        $alumnos = Alumno::where('problema_de_salud', 'no')->get();
-
-        $data = $alumnos->where('problema_de_salud','LIKE','no');
-
-        return response()->json([
-            'total_data' => count($data),
-            'data' => $data
-        ], 200);
-    }
-
-    public function problemaSalud()
-    {
-        $alumnos = Alumno::where('problema_de_salud', 'si')->get();
-
-        $data = $alumnos->where('problema_de_salud','LIKE','si');
-
-        return response()->json([
-            'total_data' => count($data),
-            'data' => $data
-        ], 200);
-    }
-
-    public function prepaDesaprobada()
-    {
-        $alumnos = Alumno::where('calificacion_prepa', '1')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '2')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '3')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '4')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '5')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '')->get();
-
-        return response()->json([
-            'total_data' => count($alumnos),
-            'data' => $alumnos
-        ], 200);
-    }
-
-    public function prepaAprobada()
-    {
-        $alumnos = Alumno::where('calificacion_prepa', '6, 7, 8, 9, 10')->get();
-        /* $alumnos = Alumno::where('calificacion_prepa', '7')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '8')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '9')->get();
-        $alumnos = Alumno::where('calificacion_prepa', '10')->get(); */
-
-        return response()->json([
-            'total_data' => count($alumnos),
-            'data' => $alumnos
+            'message11' => 'Alumnos no aprobados prepa',
+            'total_data11' => count($alumnosCR),
+            'data11' => $alumnosCR
         ], 200);
     }
 
